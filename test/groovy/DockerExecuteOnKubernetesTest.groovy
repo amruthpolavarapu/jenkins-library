@@ -57,6 +57,7 @@ class DockerExecuteOnKubernetesTest extends BasePiperTest {
     def pullImageMap = [:]
     def namespace
     def securityContext
+    Map stashMap
 
     @Before
     void init() {
@@ -92,6 +93,10 @@ class DockerExecuteOnKubernetesTest extends BasePiperTest {
             }
             body()
         })
+        helper.registerAllowedMethod('stash', [Map.class], {m ->
+            stashMap = m
+        })
+
     }
 
     @Test
@@ -368,13 +373,10 @@ class DockerExecuteOnKubernetesTest extends BasePiperTest {
         assertThat(securityContext, is(equalTo(expectedSecurityContext)))
     }
 
+    /*
+    Due to negative side-effect of full git stashing
     @Test
     void testDockerExecuteOnKubernetesWorkspaceStashing() {
-
-        Map stashMap
-        helper.registerAllowedMethod('stash', [Map.class], {m ->
-            stashMap = m
-        })
 
         stepRule.step.dockerExecuteOnKubernetes(
             script: nullScript,
@@ -384,6 +386,7 @@ class DockerExecuteOnKubernetesTest extends BasePiperTest {
         assertTrue(bodyExecuted)
         assertThat(stashMap.useDefaultExcludes, is(false))
     }
+    */
 
 
     private container(options, body) {
