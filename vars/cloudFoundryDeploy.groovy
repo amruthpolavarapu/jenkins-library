@@ -185,7 +185,7 @@ void call(Map parameters = [:]) {
 
                 echo "[${STEP_NAME}] CF native deployment (${config.deployType}) with cfAppName=${config.cloudFoundry.appName}, cfManifest=${config.cloudFoundry.manifest}, smokeTestScript=${config.smokeTestScript}"
 
-                dockerExecute (
+/*                dockerExecute (
                     script: script,
                     dockerImage: config.dockerImage,
                     dockerWorkspace: config.dockerWorkspace,
@@ -193,7 +193,7 @@ void call(Map parameters = [:]) {
                     dockerEnvVars: [CF_HOME:"${config.dockerWorkspace}", CF_PLUGIN_HOME:"${config.dockerWorkspace}", STATUS_CODE: "${config.smokeTestStatusCode}"]
                 ) {
                     deployCfNative(config)
-                }
+                }*/
             }
         } catch (err) {
             deploySuccess = false
